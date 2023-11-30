@@ -1,12 +1,13 @@
 const mysql = require('mysql');
+const db_config = require('./config/db-config.json')
 
 // 데이터베이스 연결 설정
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  port : '3306',
-  password: '1234',
-  database: 'test2'
+  host: db_config.host,
+  user: db_config.user,
+  port : db_config.port,
+  password: db_config.password,
+  database: db_config.database
 });
 
 db.connect(err => {
