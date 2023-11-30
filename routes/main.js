@@ -4,7 +4,10 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   if (req.session.loggedin) {
-    res.sendFile(path.join(__dirname, '..', 'views', 'main.html'));
+    res.render('main', {
+      // 랜더링 데이터
+      data: {},
+    });
   } else {
     res.redirect('/login');
   }

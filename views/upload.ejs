@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <%- include('base/head.ejs') %>
+    <link href="/css/upload.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <%- include('base/header.ejs') %>
+
+    <title>파일 업로드 하기</title>
+    <h2>File Uploader</h2>
+    <hr />
+    <input type="file" value="파일 선택하기" name="file" id="uploadFile" />
+    <input type="button" value="업로드" name="uploadButton" id="uploadB" />
+    <h3 id="status"></h3>
+
+    <%- include('base/footer.ejs') %> <%- include('base/script.ejs') %>
+    <script src="/js/upload.js"></script>
+  </body>
+</html>
