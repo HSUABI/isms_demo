@@ -6,6 +6,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const loginRoute = require('./routes/login');
+const signupRoute = require('./routes/signup');
 const mainRoute = require('./routes/main');
 const uploadRoute = require('./routes/upload');
 
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', mainRoute);
 app.use('/login', loginRoute);
+app.use('/signup', signupRoute);
 app.use('/upload', uploadRoute);
 
 app.listen(app.get('port'), () => {
