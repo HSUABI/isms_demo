@@ -8,6 +8,9 @@ const path = require('path');
 const loginRoute = require('./routes/login');
 const signupRoute = require('./routes/signup');
 const mainRoute = require('./routes/main');
+const introRoute = require('./routes/intro');
+const ismsRoute = require('./routes/isms');
+const resourceRoute = require('./routes/resource');
 const uploadRoute = require('./routes/upload');
 
 const app = express();
@@ -36,6 +39,9 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', mainRoute);
+app.use('/intro', introRoute);
+app.use('/isms', ismsRoute);
+app.use('/resource', resourceRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 app.use('/upload', uploadRoute);

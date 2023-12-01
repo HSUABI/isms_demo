@@ -1,71 +1,174 @@
-// Global object to hold the selected menu item numbers
-const selectedMenu = {
-  fileItem1: '',
-  fileItem2: '',
-  fileItem3: '',
-};
+$(document).on('click', '.system-toggle-item', function () {
+  const systemToggle = document.getElementById('system-toggle');
+  systemToggle.innerText = this.innerText;
+  systemToggle.dataset.key = this.dataset.key;
 
-function toggleMenu(menuNumber) {
-  // 클릭된 메뉴 아이템의 하위 메뉴들을 토글
-  const menuItems = document.querySelectorAll('.menu-item');
-  menuItems.forEach((item) => {
-    const itemMenuNumber = item
-      .getAttribute('onclick')
-      .match(/toggleMenu\('([^']+)'\)/)[1];
-    if (itemMenuNumber.startsWith(menuNumber + '-')) {
-      item.classList.toggle('hidden');
-    } else if (itemMenuNumber === menuNumber) {
-      item.classList.toggle('hidden');
-    } else {
-      item.classList.add('hidden');
-    }
-  });
+  $(systemToggle).dropdown('hide');
+});
 
-  // 콘텐츠 영역 업데이트
-  const contentDiv = document.querySelector('.content');
-  contentDiv.innerHTML =
-    `<h1>${menuNumber.replace(/-/g, '.')}</h1>` + contentDiv.innerHTML;
+new Chart(document.getElementById('year-statistics'), {
+  type: 'bar',
+  data: {
+    labels: [...window.data.yearStatistics].reverse().map((row) => row[0]),
+    datasets: [
+      {
+        label: '종합점수',
+        data: [...window.data.yearStatistics].reverse().map((row) => row[1]),
+        backgroundColor: [...window.data.yearStatistics]
+          .reverse()
+          .map((row) => {
+            const score = row[1];
 
-  // Extract the menu numbers and set them in the global object
-  const numbers = menuNumber.split('-');
-  selectedMenu.fileItem1 = numbers[0] || '';
-  selectedMenu.fileItem2 = numbers.slice(0, 2).join('-');
-  selectedMenu.fileItem3 = menuNumber;
+            if (score < 30) {
+              return '#FF6384';
+            } else if (score < 70) {
+              return '#FFCD56';
+            } else {
+              return '#4BC0C0';
+            }
+          }),
+      },
+    ],
+  },
+  options: {
+    indexAxis: 'y',
+    elements: {
+      bar: {
+        borderWidth: 1,
+      },
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 100,
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: '연도별 종합점수',
+        font: {
+          size: 16,
+        },
+      },
+      datalabels: {
+        formatter: function (value, context) {
+          return value + '점';
+        },
+        font: {
+          size: 18,
+          weight: 'bold',
+        },
+      },
+    },
+  },
+});
 
-  // Update hidden form fields
-  document.getElementById('fileItem1').value = selectedMenu.fileItem1;
-  document.getElementById('fileItem2').value = selectedMenu.fileItem2;
-  document.getElementById('fileItem3').value = selectedMenu.fileItem3;
-}
+new Chart(document.getElementById('management-statistics'), {
+  type: 'pie',
+  data: {
+    labels: ['우수', '보통', '미흡'],
+    datasets: [
+      {
+        label: '비율',
+        data: window.data.detailStatistics.management,
+        backgroundColor: ['#4BC0C0', '#FFCD56', '#FF6384'],
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false,
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '1. 관리체계 수립 및 운영',
+      },
+      datalabels: {
+        formatter: function (value, context) {
+          return value + '%';
+        },
+        font: {
+          size: 12,
+          weight: 'bold',
+        },
+      },
+    },
+  },
+});
 
-// 파일 업로드 처리
-document
-  .getElementById('uploadForm')
-  .addEventListener('submit', function (event) {
-    event.preventDefault(); // 기본 form 제출 행동 방지
+new Chart(document.getElementById('protection-statistics'), {
+  type: 'pie',
+  data: {
+    labels: ['우수', '보통', '미흡'],
+    datasets: [
+      {
+        label: '비율',
+        data: window.data.detailStatistics.protection,
+        backgroundColor: ['#4BC0C0', '#FFCD56', '#FF6384'],
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false,
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '2. 보호대책 요구사항',
+      },
+      datalabels: {
+        formatter: function (value, context) {
+          return value + '%';
+        },
+        font: {
+          size: 12,
+          weight: 'bold',
+        },
+      },
+    },
+  },
+});
 
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput.files.length === 0) {
-      alert('파일을 선택해주세요.');
-      return;
-    }
-    console.log(fileInput);
-    const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('fileItem1', selectedMenu.fileItem1);
-    formData.append('fileItem2', selectedMenu.fileItem2);
-    formData.append('fileItem3', selectedMenu.fileItem3);
-
-    // AJAX 요청을 통해 서버에 파일 업로드
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/upload', true);
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        alert('파일 업로드 성공.');
-      } else {
-        alert('파일 업로드 실패.');
-      }
-    };
-    xhr.send(formData);
-  });
+new Chart(document.getElementById('privacy-statistics'), {
+  type: 'pie',
+  data: {
+    labels: ['우수', '보통', '미흡'],
+    datasets: [
+      {
+        label: '비율',
+        data: window.data.detailStatistics.privacy,
+        backgroundColor: ['#4BC0C0', '#FFCD56', '#FF6384'],
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false,
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '3. 개인정보 처리 단계별 요구사항',
+      },
+      datalabels: {
+        formatter: function (value, context) {
+          return value + '%';
+        },
+        font: {
+          size: 12,
+          weight: 'bold',
+        },
+      },
+    },
+  },
+});
