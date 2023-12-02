@@ -29,7 +29,9 @@ app.use(
 );
 
 app.use(function (req, res, next) {
-  // ejs에서 session 접근 가능하도록 설정
+  // ejs에서 params, query, session 접근 가능하도록 설정
+  res.locals.params = req.params;
+  res.locals.query = req.query;
   res.locals.session = req.session;
   next();
 });

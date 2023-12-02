@@ -1,0 +1,30 @@
+<div class="dropdown d-inline-block">
+  <button
+    type="button"
+    id="system-toggle"
+    class="btn btn-outline-secondary dropdown-toggle"
+    data-toggle="dropdown"
+  ></button>
+  <div class="dropdown-menu">
+    <% data.systems?.forEach((system, index) => { %>
+    <a class="dropdown-item system-toggle-item" data-key="<%= system?.id %>"
+      ><%= system?.name %></a
+    >
+    <% }); %>
+  </div>
+</div>
+<div class="dropdown d-inline-block">
+  <button
+    type="button"
+    id="year-toggle"
+    class="btn btn-outline-secondary dropdown-toggle"
+    data-toggle="dropdown"
+  ></button>
+  <div class="dropdown-menu">
+    <% [2023, 2022, 2021, 2020].forEach((year, index) => { %>
+    <a class="dropdown-item year-toggle-item" data-key="<%= year %>"
+      ><%= year %>년</a
+    >
+    <% }); %>
+  </div>
+</div>

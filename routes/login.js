@@ -21,8 +21,17 @@ router.post('/', (req, res) => {
       if (results.length > 0) {
         req.session.loggedin = true; // 세션에 로그인 상태 저장
         req.session.username = username;
+        req.session.user = {
+          id: username,
+          name: '송성욱',
+          team: {
+            id: 'TEAM01',
+            name: '4284부대',
+          },
+        };
         res.redirect('/');
       } else {
+        req.session.alert = '로그인에 실패하였습니다.';
         res.redirect('/login');
       }
     }

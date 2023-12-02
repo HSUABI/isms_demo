@@ -7,8 +7,15 @@
   </head>
 
   <body>
-    <%- include('base/header.ejs') %> <%- include('base/footer.ejs') %> <%-
-    include('base/script.ejs') %>
+    <%- include('base/header.ejs') %>
+
+    <div class="container-fluid my-3">
+      <div class="row mb-4">
+        <div class="col-12"><%- include('base/system-tab.ejs') %></div>
+      </div>
+    </div>
+
+    <%- include('base/footer.ejs') %> <%- include('base/script.ejs') %>
     <script src="/js/resource.js"></script>
   </body>
 </html>

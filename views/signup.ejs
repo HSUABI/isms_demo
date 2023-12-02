@@ -54,7 +54,7 @@
                 />
               </div>
               <div class="form-group">
-                <label for="phone" class="font-weight-bold">연락처</label>
+                <label for="phone" class="font-weight-bold">휴대폰 번호</label>
                 <input
                   type="text"
                   class="form-control"
@@ -66,54 +66,36 @@
               <div class="form-group">
                 <label for="branch" class="font-weight-bold">소속</label>
                 <select class="form-control" id="branch" name="branch">
-                  <option value="1">공군</option>
-                  <option value="2">육군</option>
-                  <option value="3">해군</option>
-                  <option value="4">국직</option>
+                  <option value="M01">공군</option>
+                  <option value="M02">육군</option>
+                  <option value="M03">해군</option>
+                  <option value="M04">국직</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="unit" class="font-weight-bold">부대</label>
-                <select class="form-control" id="unit" name="unit">
-                  <option value="1">4284부대</option>
-                  <option value="2">공군본부</option>
-                  <option value="3">해군본부</option>
-                  <option value="4">육군본부</option>
+                <label for="team" class="font-weight-bold">부대</label>
+                <select class="form-control" id="team" name="team">
+                  <option value="TEAM01">4284부대</option>
+                  <option value="TEAM02">공군본부</option>
+                  <option value="TEAM03">해군본부</option>
+                  <option value="TEAM04">육군본부</option>
                 </select>
               </div>
               <div class="form-group">
                 <label class="font-weight-bold">담당 시스템</label>
                 <div>
+                  <% data.systems.forEach((system, index) => { %>
                   <div class="form-check-inline">
                     <label class="form-check-label">
                       <input
                         type="checkbox"
                         class="form-check-input"
                         name="systems[]"
-                        value="1"
-                      />중앙대학교
-                    </label>
+                        value="<%= system.id %>"
+                      /><%= system.name %></label
+                    >
                   </div>
-                  <div class="form-check-inline">
-                    <label class="form-check-label">
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
-                        name="systems[]"
-                        value="2"
-                      />고려대학교
-                    </label>
-                  </div>
-                  <div class="form-check-inline">
-                    <label class="form-check-label">
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
-                        name="systems[]"
-                        value="3"
-                      />연세대학교
-                    </label>
-                  </div>
+                  <% }); %>
                 </div>
               </div>
               <div class="mt-1">

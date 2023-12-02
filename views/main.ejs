@@ -11,42 +11,15 @@
 
     <div class="container-fluid my-3">
       <div class="row mb-4">
-        <div class="col-12">
-          <div class="dropdown">
-            <button
-              type="button"
-              id="system-toggle"
-              class="btn btn-secondary dropdown-toggle"
-              data-toggle="dropdown"
-              data-key="<%= data.systems?.[0]?.key %>"
-            >
-              <%= data.systems?.[0]?.name %>
-            </button>
-            <div class="dropdown-menu">
-              <% data.systems?.forEach((system, index) => { %>
-              <a
-                class="dropdown-item system-toggle-item"
-                data-key="<%= system?.key %>"
-                ><%= system?.name %></a
-              >
-              <% }); %>
-            </div>
-          </div>
-        </div>
+        <div class="col-12"><%- include('base/system-tab.ejs') %></div>
       </div>
 
       <div class="row">
         <div class="col-md-6 mb-3">
           <div class="card">
-            <div class="card-header p-1 font-weight-bold">연도별 현황</div>
-            <div class="card-body">
-              <canvas id="year-statistics"></canvas>
+            <div class="card-header p-1 font-weight-bold">
+              올해(<span id="year-statistics-year"></span>년)의 현황
             </div>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <div class="card">
-            <div class="card-header p-1 font-weight-bold">항목별 현황</div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-4 mb-3">
@@ -59,6 +32,15 @@
                   <canvas id="privacy-statistics"></canvas>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-header p-1 font-weight-bold">년도별 현황</div>
+            <div class="card-body">
+              <canvas id="year-statistics"></canvas>
             </div>
           </div>
         </div>
