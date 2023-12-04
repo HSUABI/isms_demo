@@ -13,404 +13,1209 @@
       <div class="row mb-4">
         <div class="col-12"><%- include('base/system-tab.ejs') %></div>
       </div>
-    </div>
 
-    <div class="isms-page">
-      <div class="sidebar">
-        <!-- 1번 메뉴 항목 -->
-        <div class="menu-item" onclick="toggleMenu('1')">
-          1. 관리체계 수립 및 운영
+      <div class="row">
+        <div class="col-12">
+          <% if (params.type === '1') { %>
+          <h5>1. 관리체계 수립 및 운영</h5>
+          <% } %> <% if (params.type === '2') { %>
+          <h5>2. 보호대책 요구사항</h5>
+          <% } %> <% if (params.type === '3') { %>
+          <h5>3. 개인정보 처리 단계별 요구사항</h5>
+          <% } %>
         </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-1')">
-          1.1. 관리체계 기반 마련
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-1-1')">
-          1.1.1 경영진의 참여
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-1-2')">
-          1.1.2 최고책임자의 지정
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-1-3')">
-          1.1.3 조직 구성
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-1-4')">
-          1.1.4 범위 설정
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-1-5')">
-          1.1.5 정책 수립
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-1-6')">
-          1.1.6 자원 할당
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-2')">
-          1.2. 위험 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-2-1')">
-          1.2.1 정보자산 식별
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-2-2')">
-          1.2.2 현황 및 흐름분석
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-2-3')">
-          1.2.3 위험 평가
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-2-4')">
-          1.2.4 보호대책 선정
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-3')">
-          1.3. 관리체계 운영
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-3-1')">
-          1.3.1 보호대책 구현
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-3-2')">
-          1.3.2 보호대책 공유
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-3-3')">
-          1.3.3 운영현황 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-4')">
-          1.4. 관리체계 점검 및 개선
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-4-1')">
-          1.4.1 법적 요구사항 준수 검토
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-4-2')">
-          1.4.2 관리체계 점검
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('1-4-3')">
-          1.4.3 관리체계 개선
+        <div class="col-12">
+          <ul id="isms-category-tab" class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                id="isms-summary"
+                class="nav-link active"
+                data-toggle="tab"
+                href="#summary"
+                data-summary-type="<%= params.type %>"
+                >요약</a
+              >
+            </li>
+
+            <% if (params.type === '1') { %>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >1.1. 관리체계 기반 마련</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-1-1"
+                  >1.1.1 경영진의 참여</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-1-2"
+                  >1.1.2 최고책임자의 지정</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-1-3"
+                  >1.1.3 조직 구성</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-1-4"
+                  >1.1.4 범위 설정</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-1-5"
+                  >1.1.5 정책 수립</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-1-6"
+                  >1.1.6 자원 할당</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >1.2. 위험 관리</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-2-1"
+                  >1.2.1 정보자산 식별</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-2-2"
+                  >1.2.2 현황 및 흐름분석</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-2-3"
+                  >1.2.3 위험 평가</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-2-4"
+                  >1.2.4 보호대책 선정</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >1.3. 관리체계 운영</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-3-1"
+                  >1.3.1 보호대책 구현</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-3-2"
+                  >1.3.2 보호대책 공유</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-3-3"
+                  >1.3.3 운영현황 관리</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >1.4. 관리체계 점검 및 개선</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-4-1"
+                  >1.4.1 법적 요구사항 준수 검토</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-4-2"
+                  >1.4.2 관리체계 점검</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="1-4-3"
+                  >1.4.3 관리체계 개선</a
+                >
+              </div>
+            </li>
+            <% } %> <% if (params.type === '2') { %>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.1. 정책, 조직, 자산 관리</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-1-1"
+                  >2.1.1 정책의 유지관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-1-2"
+                  >2.1.2 조직의 유지관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-1-3"
+                  >2.1.3 정보자산 관리</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.2. 인적 보안</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-2-1"
+                  >2.2.1 주요 직무자 지정 및 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-2-2"
+                  >2.2.2 직무 분리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-2-3"
+                  >2.2.3 보안 서약</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-2-4"
+                  >2.2.4 인식제고 및 교육훈련</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-2-5"
+                  >2.2.5 퇴직 및 직무변경 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-2-6"
+                  >2.2.6 보안 위반 시 조치</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.3. 외부자 보안</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-3-1"
+                  >2.3.1 외부자 현황 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-3-2"
+                  >2.3.2 외부자 계약 시 보안</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-3-3"
+                  >2.3.3 외부자 보안 이행 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-3-4"
+                  >2.3.4 외부자 계약 변경 및 만료 시 보안</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.4. 물리 보안</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-4-1"
+                  >2.4.1 보호구역 지정</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-4-2"
+                  >2.4.2 출입통제</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-4-3"
+                  >2.4.3 정보시스템 보호</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-4-4"
+                  >2.4.4 보호설비 운영</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-4-5"
+                  >2.4.5 보호구역 내 작업</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-4-6"
+                  >2.4.6 반출입 기기 통제</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-4-7"
+                  >2.4.7 업무환경 보안</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.5. 인증 및 권한관리</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-5-1"
+                  >2.5.1 사용자 계정 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-5-2"
+                  >2.5.2 사용자 식별</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-5-3"
+                  >2.5.3 사용자 인증</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-5-4"
+                  >2.5.4 비밀번호 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-5-5"
+                  >2.5.5 특수 계정 및 권한관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-5-6"
+                  >2.5.6 접근권한 검토</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.6. 접근통제</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-6-1"
+                  >2.6.1 네트워크 접근</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-6-2"
+                  >2.6.2 정보시스템 접근</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-6-3"
+                  >2.6.3 응용프로그램 접근</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-6-4"
+                  >2.6.4 데이터베이스 접근</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-6-5"
+                  >2.6.5 무선 네트워크 접근</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-6-6"
+                  >2.6.6 원격접근 통제</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-6-7"
+                  >2.6.7 인터넷 접속 통제</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.7. 암호화 적용</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-7-1"
+                  >2.7.1 암호정책 적용</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-7-2"
+                  >2.7.2 암호키 관리</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.8. 정보시스템 도입 및 개발 보안</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-8-1"
+                  >2.8.1 보안 요구사항 정의</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-8-2"
+                  >2.8.2 보안 요구사항 검토 및 시험</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-8-3"
+                  >2.8.3 시험과 운영 환경 분리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-8-4"
+                  >2.8.4 시험 데이터 보안</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-8-5"
+                  >2.8.5 소스 프로그램 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-8-6"
+                  >2.8.6 운영환경 이관</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.9. 시스템 및 서비스 운영관리</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-9-1"
+                  >2.9.1 변경관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-9-2"
+                  >2.9.2 성능 및 장애관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-9-3"
+                  >2.9.3 백업 및 복구관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-9-4"
+                  >2.9.4 로그 및 접속기록 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-9-5"
+                  >2.9.5 로그 및 접속기록 점검</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-9-6"
+                  >2.9.6 시간 동기화</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-9-7"
+                  >2.9.7 정보자산의 재사용 및 폐기</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.10. 시스템 및 서비스 보안관리</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-1"
+                  >2.10.1 보안시스템 운영</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-2"
+                  >2.10.2 클라우드 보안</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-3"
+                  >2.10.3 공개서버 보안</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-4"
+                  >2.10.4 전자거래 및 핀테크 보안</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-5"
+                  >2.10.5 정보전송 보안</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-6"
+                  >2.10.6 업무용 단말기기 보안</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-7"
+                  >2.10.7 보조저장매체 관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-8"
+                  >2.10.8 패치관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-10-9"
+                  >2.10.9 악성코드 통제</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.11. 사고 예방 및 대응</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-11-1"
+                  >2.11.1 사고 예방 및 대응체계 구축</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-11-2"
+                  >2.11.2 취약점 점검 및 조치</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-11-3"
+                  >2.11.3 이상행위 분석 및 모니터링</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-11-4"
+                  >2.11.4 사고 대응 훈련 및 개선</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-11-5"
+                  >2.11.5 사고 대응 및 복구</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >2.12. 재해 복구</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-12-1"
+                  >2.12.1 재해·재난 대비 안전조치</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="2-12-2"
+                  >2.12.2 재해 복구 시험 및 개선</a
+                >
+              </div>
+            </li>
+            <% } %> <% if (params.type === '3') { %>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >3.1. 개인정보 수집 시 보호조치</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-1-1"
+                  >3.1.1 개인정보 수집·이용</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-1-2"
+                  >3.1.2 개인정보 수집 제한</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-1-3"
+                  >3.1.3 주민등록번호 처리 제한</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-1-4"
+                  >3.1.4 민감정보 및 고유식별정보의 처리 제한</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-1-5"
+                  >3.1.5 개인정보 간접수집</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-1-6"
+                  >3.1.6 영상정보처리기기 설치·운영</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-1-7"
+                  >3.1.7 마케팅 목적의 개인정보 수집·이용</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >3.2. 개인정보 보유 및 이용 시 보호조치</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-2-1"
+                  >3.2.1 개인정보 현황관리</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-2-2"
+                  >3.2.2 개인정보 품질보장</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-2-3"
+                  >3.2.3 이용자 단말기 접근 보호</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-2-4"
+                  >3.2.4 개인정보 목적 외 이용 및 제공</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-2-5"
+                  >3.2.5 가명정보 처리</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >3.3. 개인정보 제공 시 보호조치</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-3-1"
+                  >3.3.1 개인정보 제3자 제공</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-3-2"
+                  >3.3.2 개인정보 처리 업무 위탁</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-3-3"
+                  >3.3.3 영업의 양도 등에 따른 개인정보 이전</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-3-4"
+                  >3.3.4 개인정보 국외이전</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >3.4. 개인정보 파기 시 보호조치</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-4-1"
+                  >3.4.1 개인정보 파기</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-4-2"
+                  >3.4.2 처리목적 달성 후 보유 시 조치</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                href="#"
+                >3.5. 정보주체 권리보호</a
+              >
+              <div class="dropdown-menu">
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-5-1"
+                  >3.5.1 개인정보 처리방침 공개</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-5-2"
+                  >3.5.2 정보주체 권리보장</a
+                >
+                <a
+                  class="isms-category dropdown-item"
+                  data-toggle="tab"
+                  href="#detail"
+                  data-category="3-5-3"
+                  >3.5.3 정보주체에 대한 통지</a
+                >
+              </div>
+            </li>
+            <% } %>
+          </ul>
         </div>
 
-        <!-- 2번 메뉴 항목 -->
-        <div class="menu-item" onclick="toggleMenu('2')">
-          2. 보호대책 요구사항
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-1')">
-          2.1. 정책, 조직, 자산 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-1-1')">
-          2.1.1 정책의 유지관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-1-2')">
-          2.1.2 조직의 유지관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-1-3')">
-          2.1.3 정보자산 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-2')">
-          2.2. 인적 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-2-1')">
-          2.2.1 주요 직무자 지정 및 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-2-2')">
-          2.2.2 직무 분리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-2-3')">
-          2.2.3 보안 서약
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-2-4')">
-          2.2.4 인식제고 및 교육훈련
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-2-5')">
-          2.2.5 퇴직 및 직무변경 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-2-6')">
-          2.2.6 보안 위반 시 조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-3')">
-          2.3. 외부자 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-3-1')">
-          2.3.1 외부자 현황 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-3-2')">
-          2.3.2 외부자 계약 시 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-3-3')">
-          2.3.3 외부자 보안 이행 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-3-4')">
-          2.3.4 외부자 계약 변경 및 만료 시 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4')">
-          2.4. 물리 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4-1')">
-          2.4.1 보호구역 지정
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4-2')">
-          2.4.2 출입통제
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4-3')">
-          2.4.3 정보시스템 보호
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4-4')">
-          2.4.4 보호설비 운영
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4-5')">
-          2.4.5 보호구역 내 작업
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4-6')">
-          2.4.6 반출입 기기 통제
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-4-7')">
-          2.4.7 업무환경 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-5')">
-          2.5. 인증 및 권한관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-5-1')">
-          2.5.1 사용자 계정 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-5-2')">
-          2.5.2 사용자 식별
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-5-3')">
-          2.5.3 사용자 인증
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-5-4')">
-          2.5.4 비밀번호 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-5-5')">
-          2.5.5 특수 계정 및 권한관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-5-6')">
-          2.5.6 접근권한 검토
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6')">
-          2.6. 접근통제
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6-1')">
-          2.6.1 네트워크 접근
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6-2')">
-          2.6.2 정보시스템 접근
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6-3')">
-          2.6.3 응용프로그램 접근
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6-4')">
-          2.6.4 데이터베이스 접근
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6-5')">
-          2.6.5 무선 네트워크 접근
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6-6')">
-          2.6.6 원격접근 통제
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-6-7')">
-          2.6.7 인터넷 접속 통제
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-7')">
-          2.7. 암호화 적용
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-7-1')">
-          2.7.1 암호정책 적용
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-7-2')">
-          2.7.2 암호키 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-8')">
-          2.8. 정보시스템 도입 및 개발 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-8-1')">
-          2.8.1 보안 요구사항 정의
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-8-2')">
-          2.8.2 보안 요구사항 검토 및 시험
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-8-3')">
-          2.8.3 시험과 운영 환경 분리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-8-4')">
-          2.8.4 시험 데이터 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-8-5')">
-          2.8.5 소스 프로그램 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-8-6')">
-          2.8.6 운영환경 이관
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9')">
-          2.9. 시스템 및 서비스 운영관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9-1')">
-          2.9.1 변경관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9-2')">
-          2.9.2 성능 및 장애관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9-3')">
-          2.9.3 백업 및 복구관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9-4')">
-          2.9.4 로그 및 접속기록 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9-5')">
-          2.9.5 로그 및 접속기록 점검
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9-6')">
-          2.9.6 시간 동기화
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-9-7')">
-          2.9.7 정보자산의 재사용 및 폐기
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10')">
-          2.10. 시스템 및 서비스 보안관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-1')">
-          2.10.1 보안시스템 운영
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-2')">
-          2.10.2 클라우드 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-3')">
-          2.10.3 공개서버 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-4')">
-          2.10.4 전자거래 및 핀테크 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-5')">
-          2.10.5 정보전송 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-6')">
-          2.10.6 업무용 단말기기 보안
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-7')">
-          2.10.7 보조저장매체 관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-8')">
-          2.10.8 패치관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-10-9')">
-          2.10.9 악성코드 통제
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-11')">
-          2.11. 사고 예방 및 대응
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-11-1')">
-          2.11.1 사고 예방 및 대응체계 구축
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-11-2')">
-          2.11.2 취약점 점검 및 조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-11-3')">
-          2.11.3 이상행위 분석 및 모니터링
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-11-4')">
-          2.11.4 사고 대응 훈련 및 개선
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-11-5')">
-          2.11.5 사고 대응 및 복구
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-12')">
-          2.12. 재해 복구 2.12.1 재해·재난 대비 안전조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('2-12-2')">
-          2.12.2 재해 복구 시험 및 개선
-        </div>
-        <!-- 더 많은 2번 메뉴의 하위 메뉴 항목을 추가할 수 있습니다 -->
+        <div class="col-12">
+          <div class="tab-content mt-3">
+            <div class="tab-pane container-fluid active" id="summary">
+              <div class="row justify-content-around">
+                <div class="col-xl-8">
+                  <div>
+                    <div class="<%= (params.type !== '1' && 'd-none') || '' %>">
+                      <canvas id="statistics-1"></canvas>
+                    </div>
+                    <div class="<%= (params.type !== '2' && 'd-none') || '' %>">
+                      <canvas id="statistics-2"></canvas>
+                    </div>
+                    <div class="<%= (params.type !== '3' && 'd-none') || '' %>">
+                      <canvas id="statistics-3"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <% data.window.statistics.find((s) => s.type ===
+                  params.type).categories?.forEach((c, index) => { %>
+                  <div id="detail-statistics-<%= index %>" class="mb-2">
+                    <div class="card shadow-sm">
+                      <div class="card-header p-1 font-weight-bold">
+                        <span
+                          type="button"
+                          class="btn-link text-dark"
+                          data-toggle="collapse"
+                          data-target="#detail-statistics-collapse-<%= index %>"
+                        >
+                          <%= c.name %><i class="fas fa-caret-down fa-fw"></i>
+                        </span>
+                      </div>
 
-        <!-- 3번 메뉴 항목 -->
-        <div class="menu-item" onclick="toggleMenu('3')">
-          3. 개인정보 처리 단계별 요구사항
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1')">
-          3.1. 개인정보 수집 시 보호조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1-1')">
-          3.1.1 개인정보 수집·이용
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1-2')">
-          3.1.2 개인정보 수집 제한
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1-3')">
-          3.1.3 주민등록번호 처리 제한
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1-4')">
-          3.1.4 민감정보 및 고유식별정보의 처리 제한
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1-5')">
-          3.1.5 개인정보 간접수집
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1-6')">
-          3.1.6 영상정보처리기기 설치·운영
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-1-7')">
-          3.1.7 마케팅 목적의 개인정보 수집·이용
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-2')">
-          3.2. 개인정보 보유 및 이용 시 보호조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-2-1')">
-          3.2.1 개인정보 현황관리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-2-2')">
-          3.2.2 개인정보 품질보장
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-2-3')">
-          3.2.3 이용자 단말기 접근 보호
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-2-4')">
-          3.2.4 개인정보 목적 외 이용 및 제공
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-2-5')">
-          3.2.5 가명정보 처리
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-3')">
-          3.3. 개인정보 제공 시 보호조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-3-1')">
-          3.3.1 개인정보 제3자 제공
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-3-2')">
-          3.3.2 개인정보 처리 업무 위탁
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-3-3')">
-          3.3.3 영업의 양도 등에 따른 개인정보 이전
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-3-4')">
-          3.3.4 개인정보 국외이전
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-4')">
-          3.4. 개인정보 파기 시 보호조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-4-1')">
-          3.4.1 개인정보 파기
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-4-2')">
-          3.4.2 처리목적 달성 후 보유 시 조치
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-5')">
-          3.5. 정보주체 권리보호
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-5-1')">
-          3.5.1 개인정보 처리방침 공개
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-5-2')">
-          3.5.2 정보주체 권리보장
-        </div>
-        <div class="menu-item hidden" onclick="toggleMenu('3-5-3')">
-          3.5.3 정보주체에 대한 통지
-        </div>
-        <!-- 더 많은 3번 메뉴의 하위 메뉴 항목을 추가할 수 있습니다 -->
-      </div>
-      <div class="content">
-        <div class="upload-area">
-          <form
-            id="uploadForm"
-            action="/upload"
-            method="post"
-            enctype="multipart/form-data"
-          >
-            <input type="file" id="fileInput" name="file" />
-            <input type="hidden" id="fileItem1" name="fileItem1" />
-            <input type="hidden" id="fileItem2" name="fileItem2" />
-            <input type="hidden" id="fileItem3" name="fileItem3" />
-            <button type="submit">Upload File</button>
-          </form>
+                      <div
+                        id="detail-statistics-collapse-<%= index %>"
+                        class="collapse show"
+                        data-parent="#detail-statistics-<%= index %>"
+                      >
+                        <div class="card-body">
+                          <% (c.subs || []).forEach((sub, index) => { %>
+                          <div>
+                            <span
+                              class="text-muted btn-link"
+                              style="cursor: pointer"
+                              onclick="$(('.isms-category[data-category=\'' +
+                              this.innerText.split(' ')[0].replace(/\./g, ' ').trim().replace(/ /g, '-') + '\']')).click()"
+                            >
+                              <%= sub.name %></span
+                            >
+                            <% if (sub.grade === 1) { %>
+                            <span class="badge badge-success mx-1">우수</span>
+                            <% } %> <% if (sub.grade === 2) { %>
+                            <span class="badge badge-warning mx-1">보통</span>
+                            <% } %> <% if (sub.grade === 3) { %>
+                            <span class="badge badge-danger mx-1">미흡</span>
+                            <% } %>
+                          </div>
+                          <% }); %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% }); %>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane container-fluid fade" id="detail">
+              <div class="row">
+                <strong
+                  id="isms-detail-title"
+                  style="font-size: 1.05rem"
+                ></strong>
+              </div>
+              <div class="row">
+                <div class="col-xl-3 col-md-6">
+                  <label class="mt-3 mb-1">인증기준</label>
+                  <textarea
+                    id="isms-description-rule"
+                    class="form-control-plaintext bg-light p-1 border"
+                    rows="5"
+                    style="font-size: 14px; resize: none"
+                    readonly
+                  ></textarea>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                  <label class="mt-3 mb-1">주요 확인 사항</label>
+                  <textarea
+                    id="isms-description-check"
+                    class="form-control-plaintext bg-light p-1 border"
+                    rows="5"
+                    style="font-size: 14px; resize: none"
+                    readonly
+                  ></textarea>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                  <label class="mt-3 mb-1">증빙자료 (예시)</label>
+                  <textarea
+                    id="isms-description-file"
+                    class="form-control-plaintext bg-light p-1 border"
+                    rows="5"
+                    style="font-size: 14px; resize: none"
+                    readonly
+                  ></textarea>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                  <label class="mt-3 mb-1">결함사례 (예시)</label>
+                  <textarea
+                    id="isms-description-failure"
+                    class="form-control-plaintext bg-light p-1 border"
+                    rows="5"
+                    style="font-size: 14px; resize: none"
+                    readonly
+                  ></textarea>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-group">
+                    <label class="mt-3 mb-1" for="year-history-select"
+                      >점검 결과 이력</label
+                    >
+                    <select
+                      class="form-control form-control-sm"
+                      id="year-history-select"
+                    >
+                      <option>2023</option>
+                      <option>2022</option>
+                      <option>2021</option>
+                      <option>2020</option>
+                    </select>
+                    <textarea
+                      id="isms-history"
+                      class="form-control-plaintext bg-light p-1 border"
+                      rows="5"
+                      style="font-size: 14px; resize: none"
+                      readonly
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="col-xl-9">
+                  <label class="mt-3 mb-1">점검 내용</label>
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <form onsubmit="return false;">
+                        <div class="form-group mb-4">
+                          <div
+                            class="d-inline-flex justify-content-between align-items-center"
+                          >
+                            <label class="font-weight-bold">증빙자료</label>
+                            <button
+                              type="button"
+                              class="file-uploader-btn btn btn-sm btn-outline-success ml-2 mr-1"
+                              style="padding: 1px 3px; margin-bottom: 0.5rem"
+                            >
+                              <i class="fas fa-plus"></i> 추가
+                            </button>
+                          </div>
+                          <input
+                            id="file-uploader-input"
+                            type="file"
+                            class="invisible"
+                            name="file"
+                          />
+                          <div id="file-uploaded-container"></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-4">
+                            <div class="form-group">
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <label>
+                                  <span class="font-weight-bold"
+                                    >AI 분석결과</span
+                                  >
+                                  <span
+                                    id="ai-report-success"
+                                    class="ai-report-badge badge badge-success mx-1"
+                                    style="display: none"
+                                    >우수</span
+                                  >
+                                  <span
+                                    id="ai-report-warning"
+                                    class="ai-report-badge badge badge-warning mx-1"
+                                    style="display: none"
+                                    >보통</span
+                                  >
+                                  <span
+                                    id="ai-report-danger"
+                                    class="ai-report-badge badge badge-danger mx-1"
+                                    style="display: none"
+                                    >미흡</span
+                                  >
+                                </label>
+                                <button
+                                  type="button"
+                                  id="ai-report-start-btn"
+                                  class="btn btn-sm btn-outline-success ml-2"
+                                  style="
+                                    padding: 1px 3px;
+                                    margin-bottom: 0.5rem;
+                                  "
+                                >
+                                  <i class="fas fa-play"></i> 분석 시작
+                                </button>
+                              </div>
+                              <textarea
+                                id="ai-report-content"
+                                class="form-control-plaintext bg-light p-1 border"
+                                rows="5"
+                                style="font-size: 14px; resize: none"
+                                readonly
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-xl-4">
+                            <div class="form-group">
+                              <label class="font-weight-bold">특이사항</label>
+                              <textarea
+                                id="report-special"
+                                class="form-control bg-white"
+                                rows="5"
+                                style="font-size: 14px; resize: none"
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-xl-4">
+                            <div class="form-group">
+                              <label class="font-weight-bold"
+                                >실제 점검결과</label
+                              >
+                              <textarea
+                                id="report-result"
+                                class="form-control bg-white"
+                                rows="5"
+                                style="font-size: 14px; resize: none"
+                              ></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="text-right">
+                          <button
+                            id="report-save-btn"
+                            type="button"
+                            class="btn btn-primary"
+                          >
+                            <i class="fas fa-save"></i> 저장
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

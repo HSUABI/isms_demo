@@ -18,7 +18,8 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, '..', 'uploads'));
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const fileName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+    cb(null, fileName);
   },
 });
 
@@ -31,7 +32,7 @@ router.post('/', upload.single('file'), (req, res) => {
   const fileItem1 = req.body.fileItem1;
   const fileItem2 = req.body.fileItem2;
   const fileItem3 = req.body.fileItem3;
-  const fileName = file.originalname;
+  const fileName = Buffer.from(file.originalname, 'latin1').toString('utf8');
   // 파일 내용 읽기
   const filePath = path.join(__dirname, '..', 'uploads', fileName);
   const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -45,6 +46,8 @@ router.post('/', upload.single('file'), (req, res) => {
   //     console.log('File info saved to database.');
   //     res.send('File uploaded and info saved to database.');
   // });
+
+  res.send(fileName);
 });
 
 module.exports = router;

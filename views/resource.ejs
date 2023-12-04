@@ -13,6 +13,383 @@
       <div class="row mb-4">
         <div class="col-12"><%- include('base/system-tab.ejs') %></div>
       </div>
+
+      <div class="row">
+        <div class="col-12">
+          <ul id="resource-category-tab" class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                id="resource-summary"
+                class="nav-link active"
+                data-toggle="tab"
+                href="#summary"
+                >요약</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="resource-category nav-link"
+                data-toggle="tab"
+                data-resource-category="1"
+                href="#detail"
+                >네트워크</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="resource-category nav-link"
+                data-toggle="tab"
+                data-resource-category="2"
+                href="#detail"
+                >서버</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="resource-category nav-link"
+                data-toggle="tab"
+                data-resource-category="3"
+                href="#detail"
+                >PC</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="resource-category nav-link"
+                data-toggle="tab"
+                data-resource-category="4"
+                href="#detail"
+                >보안장비</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="resource-category nav-link"
+                data-toggle="tab"
+                data-resource-category="5"
+                href="#detail"
+                >DB</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="resource-category nav-link"
+                data-toggle="tab"
+                data-resource-category="6"
+                href="#detail"
+                >웹</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-12">
+          <div class="tab-content mt-3">
+            <div class="tab-pane container-fluid active" id="summary">
+              <div class="row justify-content-center">
+                <div class="col-xl-4">
+                  <canvas id="resource-statistics"></canvas>
+                </div>
+                <div class="col-xl-8">
+                  <div class="card shadow-sm">
+                    <div class="card-body row p-1">
+                      <div
+                        class="col-lg-6 col-xl-4 mb-3"
+                        style="max-height: 300px"
+                      >
+                        <canvas id="resource-detail-statistics-1"></canvas>
+                      </div>
+                      <div
+                        class="col-lg-6 col-xl-4 mb-3"
+                        style="max-height: 300px"
+                      >
+                        <canvas id="resource-detail-statistics-2"></canvas>
+                      </div>
+                      <div
+                        class="col-lg-6 col-xl-4 mb-3"
+                        style="max-height: 300px"
+                      >
+                        <canvas id="resource-detail-statistics-3"></canvas>
+                      </div>
+                      <div
+                        class="col-lg-6 col-xl-4 mb-3"
+                        style="max-height: 300px"
+                      >
+                        <canvas id="resource-detail-statistics-4"></canvas>
+                      </div>
+                      <div
+                        class="col-lg-6 col-xl-4 mb-3"
+                        style="max-height: 300px"
+                      >
+                        <canvas id="resource-detail-statistics-5"></canvas>
+                      </div>
+                      <div
+                        class="col-lg-6 col-xl-4 mb-3"
+                        style="max-height: 300px"
+                      >
+                        <canvas id="resource-detail-statistics-6"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane container-fluid fade" id="detail">
+              <div class="row justify-content-center">
+                <div class="col-xl-9 text-right mb-1">
+                  <button
+                    type="button"
+                    class="resource-add-btn btn btn-success"
+                    data-toggle="modal"
+                    data-target="#resource-write-modal"
+                  >
+                    <i class="fas fa-plus"></i> 추가
+                  </button>
+                </div>
+                <div class="col-xl-9">
+                  <div class="table-responsive">
+                    <table
+                      id="resource-table"
+                      class="table table-sm table-bordered table-hover shadow-sm"
+                    >
+                      <thead class="thead-light">
+                        <tr style="white-space: nowrap">
+                          <th data-allow-type="4">유형</th>
+                          <th data-allow-type="1,2,3,4,5,6">자산명</th>
+                          <th data-allow-type="6">개발언어</th>
+                          <th data-allow-type="1,2,3,4,5">제조사</th>
+                          <th data-allow-type="1,2,3,4,5">모델명</th>
+                          <th data-allow-type="1,2,3,4,5">OS</th>
+                          <th data-allow-type="1,2,3,4,5,6">세부버전</th>
+                          <th data-allow-type="6">URL</th>
+                          <th data-allow-type="1,2,3,4,5,6">IP</th>
+                          <th data-allow-type="1,2,3,4,5,6"></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="resource-write-modal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">자산 등록</h5>
+          </div>
+          <div class="modal-body">
+            <form id="resource-write-form" onsubmit="return false;">
+              <div class="form-row">
+                <div class="form-group col-md-6" data-allow-type="1,2,3,4,5,6">
+                  <label class="font-weight-bold">자산명</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="name"
+                  />
+                </div>
+              </div>
+              <hr />
+              <div class="form-row">
+                <div class="form-group col-md-6" data-allow-type="4">
+                  <label class="font-weight-bold">유형</label>
+                  <select class="form-control form-control-sm" name="kind">
+                    <option>방화벽</option>
+                    <option>IDS</option>
+                    <option>IPS</option>
+                    <option>VPN</option>
+                    <option>웹방화벽</option>
+                    <option>UTM</option>
+                    <option>기타</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6" data-allow-type="1">
+                  <label class="font-weight-bold">제조사</label>
+                  <select class="form-control form-control-sm" name="company">
+                    <option>Cisco</option>
+                    <option>Alteon</option>
+                    <option>Passport</option>
+                    <option>Juniper</option>
+                    <option>Piolink</option>
+                    <option>기타</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6" data-allow-type="2,3,4">
+                  <label class="font-weight-bold">제조사</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="company"
+                  />
+                </div>
+                <div class="form-group col-md-6" data-allow-type="5">
+                  <label class="font-weight-bold">제조사</label>
+                  <select class="form-control form-control-sm" name="company">
+                    <option>Oracle</option>
+                    <option>MSSQL</option>
+                    <option>MySQL</option>
+                    <option>ALTIBASE</option>
+                    <option>TIBERO</option>
+                    <option>PostgreSQL</option>
+                    <option>기타</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6" data-allow-type="6">
+                  <label class="font-weight-bold">개발언어</label>
+                  <select class="form-control form-control-sm" name="language">
+                    <option>JAVA</option>
+                    <option>PHP</option>
+                    <option>Node.js</option>
+                    <option>Python</option>
+                    <option>C#</option>
+                    <option>기타</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6" data-allow-type="1,2,3,4,5">
+                  <label class="font-weight-bold">모델명</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="model"
+                  />
+                </div>
+                <div class="form-group col-md-6" data-allow-type="1,4">
+                  <label class="font-weight-bold">OS</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="os"
+                  />
+                </div>
+                <div class="form-group col-md-6" data-allow-type="2,3,5">
+                  <label class="font-weight-bold">OS</label>
+                  <select class="form-control form-control-sm" name="os">
+                    <option>WINDOWS</option>
+                    <option>LINUX</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6" data-allow-type="1,2,3,4,5,6">
+                  <label class="font-weight-bold">세부버전</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="version"
+                  />
+                </div>
+                <div class="form-group col-md-6" data-allow-type="6">
+                  <label class="font-weight-bold">URL</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="url"
+                  />
+                </div>
+                <div class="form-group col-md-6" data-allow-type="1,2,3,4,5,6">
+                  <label class="font-weight-bold">IP</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="ip"
+                  />
+                </div>
+              </div>
+              <hr />
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label class="font-weight-bold">ID</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="id"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="font-weight-bold">PW</label>
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    name="pw"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="font-weight-bold">관리자 ID</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="adminid"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="font-weight-bold">관리자 PW</label>
+                  <input
+                    type="password"
+                    class="form-control form-control-sm"
+                    name="adminpw"
+                  />
+                </div>
+                <div class="form-group col-12">
+                  <label class="font-weight-bold">특이사항</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="etc"
+                  />
+                </div>
+                <div class="form-group col-12">
+                  <div
+                    class="d-inline-flex justify-content-between align-items-center"
+                  >
+                    <label class="font-weight-bold">자료</label>
+                    <button
+                      type="button"
+                      class="file-uploader-btn btn btn-sm btn-outline-success ml-2 mr-1"
+                      style="padding: 1px 3px; margin-bottom: 0.5rem"
+                    >
+                      <i class="fas fa-plus"></i> 추가
+                    </button>
+                  </div>
+                  <input
+                    id="file-uploader-input"
+                    type="file"
+                    class="invisible"
+                    name="file"
+                  />
+                  <div id="file-uploaded-container"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="resource-save-btn"
+              type="button"
+              class="btn btn-primary"
+            >
+              <i class="fas fa-save"></i> 저장
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <%- include('base/footer.ejs') %> <%- include('base/script.ejs') %>

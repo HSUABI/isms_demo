@@ -29,9 +29,7 @@ app.use(
 );
 
 app.use(function (req, res, next) {
-  // ejs에서 params, query, session 접근 가능하도록 설정
-  res.locals.params = req.params;
-  res.locals.query = req.query;
+  // ejs에서 session 접근 가능하도록 설정
   res.locals.session = req.session;
   next();
 });
@@ -39,6 +37,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', mainRoute);
 app.use('/intro', introRoute);
