@@ -8,7 +8,10 @@
 
   <body style="background-color: ghostwhite">
     <div class="d-flex align-items-center min-vh-100">
-      <div class="container" style="max-width: 640px">
+      <div
+        class="container"
+        style="max-width: 640px; margin-top: 20px; margin-bottom: 150px"
+      >
         <div class="card shadow my-3">
           <div class="card-body">
             <h2 class="text-center mb-3">Welcome!</h2>
@@ -84,21 +87,20 @@
               <div class="form-group">
                 <label class="font-weight-bold">담당 시스템</label>
                 <div>
-                  <% data.systems.forEach((system, index) => { %>
-                  <div class="form-check-inline">
-                    <label class="form-check-label">
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
-                        name="systems[]"
-                        value="<%= system.id %>"
-                      /><%= system.name %></label
-                    >
-                  </div>
-                  <% }); %>
+                  <select
+                    id="signup-systems-select"
+                    class="d-none"
+                    name="systems[]"
+                    multiple="multiple"
+                    style="width: 100%"
+                  >
+                    <% data.systems.forEach((system, index) => { %>
+                    <option value="<%= system.id %>"><%= system.name %></option>
+                    <% }); %>
+                  </select>
                 </div>
               </div>
-              <div class="mt-1">
+              <div class="mt-5">
                 <button
                   type="submit"
                   class="btn btn-success btn-block py-2 mt-4"
@@ -112,7 +114,7 @@
       </div>
     </div>
 
-    <%- include('base/script.ejs') %>
+    <%- include('base/footer.ejs') %> <%- include('base/script.ejs') %>
     <script src="/js/signup.js"></script>
   </body>
 </html>
