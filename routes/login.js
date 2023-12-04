@@ -10,23 +10,26 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const username = req.body.id;
+  const id = req.body.id;
   const password = req.body.pw;
 
   db.query(
-    'SELECT * FROM account WHERE id = ? AND pw = ?',
-    [username, password],
+    'SELECT * FROM user ' +
+    'JOIN team ON user.team_id=team.team_id ' +
+    'WHERE user.user_id=? AND user.password=?',
+    [id, password],
     (err, results) => {
       if (err) throw err;
       if (results.length > 0) {
+        console.log(results);
         req.session.loggedin = true; // 세션에 로그인 상태 저장
-        req.session.username = username;
+        req.session.username = id;
         req.session.user = {
-          id: username,
-          name: '송성욱',
+          id: id,
+          name: results[0].user_name,
           team: {
-            id: 'TEAM01',
-            name: '4284부대',
+            id: results[0].team_id,
+            name: results[0].team_name,
           },
         };
         res.redirect('/');
