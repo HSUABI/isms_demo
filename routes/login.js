@@ -24,10 +24,30 @@ router.post('/', (req, res) => {
         req.session.user = {
           id: username,
           name: '송성욱',
+          email: 'song@naver.com',
+          phone: '010-1234-5678',
+          branch: {
+            id: 'M01',
+            name: '공군',
+          },
           team: {
             id: 'TEAM01',
             name: '4284부대',
           },
+          systems: [
+            {
+              id: 'S01',
+              name: '중앙대학교 전산시스템',
+            },
+            {
+              id: 'S02',
+              name: '아주대학교 전산시스템',
+            },
+            {
+              id: 'S03',
+              name: '공군사관학교 전산체계',
+            },
+          ],
         };
         res.redirect('/');
       } else {
