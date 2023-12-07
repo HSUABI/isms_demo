@@ -12,6 +12,7 @@ const introRoute = require('./routes/intro');
 const ismsRoute = require('./routes/isms');
 const resourceRoute = require('./routes/resource');
 const uploadRoute = require('./routes/upload');
+const restfulRoute = require('./routes/restful/restful');
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -46,6 +47,7 @@ app.use('/resource', resourceRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 app.use('/upload', uploadRoute);
+app.use('/restful', restfulRoute);
 
 app.listen(app.get('port'), () => {
   console.log(`Server running on port ${app.get('port')}`);
