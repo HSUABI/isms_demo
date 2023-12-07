@@ -1,7 +1,11 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
   <a class="navbar-brand mr-4" href="/">
-    <img src="/image/logo.png" alt="Logo" style="height: 40px" /><span class="ml-1" style="color: skyblue; font-size: 1rem;">
-      ISMS Guardian</span>
+    <img src="/image/logo.png" alt="Logo" style="height: 40px" /><span
+      class="ml-1"
+      style="color: skyblue; font-size: 1rem"
+    >
+      ISMS Guardian</span
+    >
   </a>
 
   <ul class="navbar-nav mr-auto">
@@ -11,19 +15,23 @@
       <a id="nav-link-main" class="nav-link" href="/">대시보드</a>
     </li>
     <li
-    class="nav-item mx-2 <%= data.navbar?.active === 'intro' ? 'active' : '' %>"
+      class="nav-item mx-2 <%= data.navbar?.active === 'intro' ? 'active' : '' %>"
     >
       <a id="nav-link-intro" class="nav-link" href="/intro">소개</a>
     </li>
 
-    <li class="nav-item dropdown mx-2 <%= data.navbar?.active === 'isms' ? 'active' : '' %>">
+    <li
+      class="nav-item dropdown mx-2 <%= data.navbar?.active === 'isms' ? 'active' : '' %>"
+    >
       <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
         ISMS관리
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/isms/1">1. 관리체계 수립 및 운영</a>
         <a class="dropdown-item" href="/isms/2">2. 보호대책 요구사항</a>
-        <a class="dropdown-item" href="/isms/3">3. 개인정보 처리 단계별 요구사항</a>
+        <a class="dropdown-item" href="/isms/3"
+          >3. 개인정보 처리 단계별 요구사항</a
+        >
       </div>
     </li>
 
@@ -35,14 +43,213 @@
   </ul>
 
   <div class="text-light">
-    <div class="mb-1 text-right" style="font-size: 14px"><%= session.user.name %>님 (<%= session.user.team.name %>)</div>
+    <div class="mb-1 text-right" style="font-size: 14px">
+      <%= session.user?.name %>님 (<%= session.user?.team.name %>)
+    </div>
     <div class="text-right">
-      <a href="#" class="btn btn-sm btn-light invisible mr-1" style="padding: 1px 2px; font-size: 12px">
-        설정
-      </button>
-      <a href="/login" class="btn btn-sm btn-light" style="padding: 1px 2px; font-size: 12px">
+      <a
+        href="#"
+        class="btn btn-sm btn-light mr-1"
+        style="padding: 1px 2px; font-size: 12px"
+        data-toggle="modal"
+        data-target="#my-info-modal"
+      >
+        내 정보 수정
+      </a>
+      <a
+        href="/login"
+        class="btn btn-sm btn-light"
+        style="padding: 1px 2px; font-size: 12px"
+      >
         로그아웃
       </a>
     </div>
   </div>
 </nav>
+
+<div
+  id="my-info-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">내 정보 수정</h5>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button id="my-info-save-btn" type="button" class="btn btn-primary">
+          <i class="fas fa-save"></i> 저장
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          취소
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<template id="my-info-form-template">
+  <form id="my-info-form" onsubmit="return false;">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label class="font-weight-bold">아이디</label>
+        <input
+          type="text"
+          class="form-control"
+          value="<%= session.user?.id %>"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label class="font-weight-bold">비밀번호</label>
+        <input
+          type="password"
+          class="form-control"
+          value="**********"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="pw" class="font-weight-bold">비밀번호 변경</label>
+        <input type="password" class="form-control" id="pw" name="pw" />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="name" class="font-weight-bold">이름</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          value="<%= session.user?.name %>"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="email" class="font-weight-bold">이메일</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          value="<%= session.user?.email %>"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="phone" class="font-weight-bold">휴대폰 번호</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone"
+          name="phone"
+          value="<%= session.user?.phone %>"
+          data-prev-value="<%= session.user?.phone %>"
+          required
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="branch" class="font-weight-bold">소속</label>
+        <select class="form-control" id="branch" name="branch">
+          <option
+            value="M01"
+            <%= session.user?.branch?.id === 'M01' ? 'selected' : '' %>
+          >
+            공군
+          </option>
+          <option
+            value="M02"
+            <%= session.user?.branch?.id === 'M02' ? 'selected' : '' %>
+          >
+            육군
+          </option>
+          <option
+            value="M03"
+            <%= session.user?.branch?.id === 'M03' ? 'selected' : '' %>
+          >
+            해군
+          </option>
+          <option
+            value="M04"
+            <%= session.user?.branch?.id === 'M04' ? 'selected' : '' %>
+          >
+            국직
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="team" class="font-weight-bold">부대</label>
+        <select class="form-control" id="team" name="team">
+          <option
+            value="TEAM01"
+            <%= session.user?.team?.id === 'TEAM01' ? 'selected' : '' %>
+          >
+            4284부대
+          </option>
+          <option
+            value="TEAM02"
+            <%= session.user?.team?.id === 'TEAM02' ? 'selected' : '' %>
+          >
+            공군본부
+          </option>
+          <option
+            value="TEAM03"
+            <%= session.user?.team?.id === 'TEAM03' ? 'selected' : '' %>
+          >
+            해군본부
+          </option>
+          <option
+            value="TEAM04"
+            <%= session.user?.team?.id === 'TEAM04' ? 'selected' : '' %>
+          >
+            육군본부
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="font-weight-bold">담당 시스템</label>
+      <div>
+        <select
+          id="my-info-systems-select"
+          class="d-none"
+          name="systems[]"
+          multiple="multiple"
+          style="width: 100%"
+        >
+          <option
+            value="S01"
+            <%= session.user?.systems?.map(s => s.id).includes('S01') ? 'selected' : '' %>
+          >중앙대학교 전산시스템</option>
+          <option value="S02"
+            <%= session.user?.systems?.map(s => s.id).includes('S02') ? 'selected' : '' %>
+          >아주대학교 전산시스템</option>
+          <option value="S03"
+            <%= session.user?.systems?.map(s => s.id).includes('S03') ? 'selected' : '' %>
+          >공군사관학교 전산체계</option>
+          <option value="S04"
+            <%= session.user?.systems?.map(s => s.id).includes('S04') ? 'selected' : '' %>
+          >공군 자료교환체계</option>
+          <option value="S05"
+            <%= session.user?.systems?.map(s => s.id).includes('S05') ? 'selected' : '' %>
+          >공군 알림톡체계</option>
+          <option value="S06"
+            <%= session.user?.systems?.map(s => s.id).includes('S06') ? 'selected' : '' %>
+          >육군 자료교환체계</option>
+          <option value="S07"
+            <%= session.user?.systems?.map(s => s.id).includes('S07') ? 'selected' : '' %>
+          >국직 자료교환체계</option>
+          <option value="S08"
+            <%= session.user?.systems?.map(s => s.id).includes('S08') ? 'selected' : '' %>
+          >해군 자료교환체계</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</template>

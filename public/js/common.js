@@ -138,6 +138,53 @@ $(document).on('click', '.remove-file-btn', function (e) {
   $(this).closest('.file-container').remove();
 });
 
+$(document).on('show.bs.modal', '#my-info-modal', function (e) {
+  console.log(e.relatedTarget);
+
+  $('#my-info-modal .modal-body').html($('#my-info-form-template').html());
+  $('#my-info-systems-select').removeClass('d-none');
+
+  new SlimSelect({
+    select: '#my-info-systems-select',
+    settings: {
+      openPosition: 'down',
+      placeholderText: '여기를 클릭해 검색하세요',
+      contentLocation: document.getElementById('my-info-modal'),
+    },
+  });
+});
+
+$(document).on('click', '#my-info-save-btn', function (e) {
+  // TODO: 백엔드에 내 정보 저장 구현
+  console.log($('#my-info-form').serializeArray());
+
+  Swal.fire({
+    title: '저장하시겠습니까?',
+    showCancelButton: true,
+    confirmButtonText: '확인',
+    cancelButtonText: '취소',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      location.reload();
+    }
+  });
+});
+
+$(document).on('input', '#phone', function (e) {
+  if (!this.value.match(/^[0-9\-]{0,13}$/)) {
+    this.value = this.dataset.prevValue || '';
+    return;
+  }
+
+  if (this.value.length >= 10) {
+    this.value = this.value
+      .replace(/-/g, '')
+      .replace(/^(\d{3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+  }
+
+  this.dataset.prevValue = this.value;
+});
+
 $(function () {
   loadSystemToggle();
   loadYearToggle();
