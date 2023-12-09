@@ -40,6 +40,15 @@
     >
       <a id="nav-link-resource" class="nav-link" href="/resource">자산관리</a>
     </li>
+
+    <% if (session.user.is_admin == 1) { %>
+      <li
+      class="nav-item mx-2 <%= data.navbar?.active === 'resource' ? 'active' : '' %>"
+    >
+      <a id="nav-link-resource" class="nav-link" href="/admin">관리자페이지</a>
+    </li>
+    <%} %>
+
   </ul>
 
   <div class="text-light">

@@ -21,7 +21,11 @@ router.post("/", (req, res) => {
         (err, results) => {
             if (err) throw err;
             if (results.length > 0) {
-                console.log(results);
+                if (results[0].is_confirmed != 1) {
+                    req.session.alert = "승인되지 않은 계정입니다!";
+                    res.redirect("/login");
+                    return;
+                }
                 req.session.loggedin = true; // 세션에 로그인 상태 저장
                 req.session.username = id;
                 req.session.user = {
@@ -31,11 +35,13 @@ router.post("/", (req, res) => {
                         id: results[0].team_id,
                         name: results[0].team_name,
                     },
+                    is_admin: results[0].is_admin
                 };
                 res.redirect("/");
             } else {
                 req.session.alert = "로그인에 실패하였습니다.";
                 res.redirect("/login");
+                return;
             }
         }
     );

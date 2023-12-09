@@ -1,4 +1,6 @@
 const express = require('express');
+const livereload = require('livereload');
+const livereloadMiddleware = require('connect-livereload');
 const session = require('express-session');
 const compression = require('compression');
 const cors = require('cors');
@@ -12,7 +14,15 @@ const introRoute = require('./routes/intro');
 const ismsRoute = require('./routes/isms');
 const resourceRoute = require('./routes/resource');
 const uploadRoute = require('./routes/upload');
+const adminRoute = require('./routes/admin');
 const restfulRoute = require('./routes/restful/restful');
+
+const liveServer = livereload.createServer({
+  // 변경시 다시 로드할 파일 확장자들 설정
+  exts: ['html', 'css', 'ejs'],
+  debug: true
+});
+liveServer.watch(__dirname);
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -47,7 +57,10 @@ app.use('/resource', resourceRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 app.use('/upload', uploadRoute);
+app.use('/admin', adminRoute);
 app.use('/restful', restfulRoute);
+
+app.use(livereloadMiddleware());
 
 app.listen(app.get('port'), () => {
   console.log(`Server running on port ${app.get('port')}`);

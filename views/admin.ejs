@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <%- include('base/head.ejs') %>
+    <link href="/css/admin.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <%- include('base/header.ejs') %>
+
+    <div class="container-fluid my-3">
+
+      <div class="row">
+<!--  -->
+        <div class="col-12">
+          <div class="tab-content mt-3">
+              <div class="row justify-content-center">
+                <!--  -->
+                <div class="col-xl-9">
+                  <div class="table-responsive">
+                    <table
+                      id="resource-table"
+                      class="table table-sm table-bordered table-hover shadow-sm"
+                    >
+                      <thead class="thead-light">
+                        <tr style="white-space: nowrap;text-align: center;">
+                          <th data-allow-type="1,2,3,4,5,6">ID</th>
+                          <th data-allow-type="1,2,3,4,5">이름</th>
+                          <th data-allow-type="1,2,3,4,5">군별</th>
+                          <th data-allow-type="1,2,3,4,5">소속부대</th>
+                          <th data-allow-type="1,2,3,4,5,6">승인여부</th>
+                          <th data-allow-type="1,2,3,4,5,6">관리자여부</th>
+                          <th data-allow-type="1,2,3,4,5,6">IP</th>
+                          <th data-allow-type="1,2,3,4,5"></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="resource-write-modal"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">사용자 정보 수정</h5>
+          </div>
+          <div class="modal-body">
+            <form id="resource-write-form" onsubmit="return false;">
+              <div class="form-row">
+                <div class="form-group col-md-6" data-allow-type="1,2,3,4,5,6">
+                  <label class="font-weight-bold">이름</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="name"
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label class="font-weight-bold">소속부대</label>
+                  <select class="form-control form-control-sm" name="affi[]">
+                    <option value="M01">공군</option>
+                    <option value="M02">육군</option>
+                    <option value="M03">해군</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label class="font-weight-bold">IP</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    name="ip"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="font-weight-bold">소속부대</label>
+                    <select
+                      id="admin-company-select"
+                      class="d-none"
+                      name="team[]"
+                      style="width: 100%"
+                    >
+                      <% data.teams.forEach((team, index) => { %>
+                      <option value="<%= team.id %>"><%= team.name %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label class="font-weight-bold">승인여부</label>
+                  <select class="form-control form-control-sm" name="approve[]">
+                    <option value="1">승인</option>
+                    <option value="0">미승인</option>
+                  </select>
+                </div>
+                <div class="form-group col-6">
+                  <label class="font-weight-bold">관리자여부</label>
+                  <select class="form-control form-control-sm" name="admin[]">
+                    <option value="1">관리자</option>
+                    <option value="0">사용자</option>
+                  </select>
+                  <div class="form-group col-md-6" data-allow-type="1,2,3,4,5,6" style="display: none;">
+                    <label class="font-weight-bold">이름</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      name="id"
+                    />
+                  </div>
+                </div>
+                <!-- <div class="form-group col-6">
+                  <div
+                    class="d-inline-flex justify-content-between align-items-center"
+                  >
+                  </div>
+                </div> -->
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="resource-save-btn"
+              type="button"
+              class="btn btn-primary"
+            >
+              <i class="fas fa-save"></i> 저장
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('base/footer.ejs') %> <%- include('base/script.ejs') %>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>
