@@ -1,0 +1,14 @@
+1. Admin/Administrator Accounts Check:
+No admin/administrator accounts found
+2. Session Timeout Check:
+Session timeout:  (less than 300 or not set)
+3. Password Policy Check:
+PASS_MAX_DAYS	99999
+PASS_MIN_DAYS	0
+
+4. Time Synchronization Check:
+Server time: 2023-12-09 20:45:51, Google time: Sat Dec  9 20:45:51 2023
+Time difference: 0.0 seconds
+Time is synchronized within 30 seconds.
+5. Antivirus Installation Check:
+No antivirus installed
