@@ -70,7 +70,6 @@ module.exports = async (systemId, year, callback) => {
                     },
                 ],
             };
-            console.log(data);
             callback(data);
         }
     );

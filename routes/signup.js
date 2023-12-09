@@ -1,45 +1,19 @@
 const express = require('express');
+const conn = require("../dbconn/dbconn");
+const db = require('./../db')
 const router = express.Router();
 
 function renderSignup(req, res) {
-  res.render('signup', {
-    // 랜더링 데이터
-    data: {
-      systems: [
-        {
-          id: 'S01',
-          name: '중앙대학교 전산시스템',
+  conn.getSystemList((systems) => {
+    conn.getTeamList((teams) => {
+      res.render('signup', {
+        // 랜더링 데이터
+        data: {
+          systems: systems,
+          teams: teams
         },
-        {
-          id: 'S02',
-          name: '아주대학교 전산시스템',
-        },
-        {
-          id: 'S03',
-          name: '공군사관학교 전산체계',
-        },
-        {
-          id: 'S04',
-          name: '공군 자료교환체계',
-        },
-        {
-          id: 'S05',
-          name: '공군 알림톡체계',
-        },
-        {
-          id: 'S06',
-          name: '육군 자료교환체계',
-        },
-        {
-          id: 'S07',
-          name: '국직 자료교환체계',
-        },
-        {
-          id: 'S08',
-          name: '해군 자료교환체계',
-        },
-      ],
-    },
+      });
+    });
   });
 }
 
@@ -50,6 +24,21 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   console.debug(req.body);
   const { id, pw, name, email, phone, branch, team, systems } = req.body;
+
+  db.query(
+    "INSERT INTO user (user_id, password, user_name, " +
+    "affiliation, team_id, is_confirmed, " +
+    "is_admin) VALUES " +
+    "(?, ?, ?, ?, ?, ?, ?)",
+    [id, pw, name, branch, team, 0, 0]
+  );
+
+  systems.forEach((element) => {
+    db.query(
+      "INSERT INTO SYSTEM_USER (system_id, user_id) VALUES (?, ?)",
+      [element, id]
+    );
+  });
 
   // TODO: 백엔드에서 원하는대로 처리
   if (id === 'admin') {

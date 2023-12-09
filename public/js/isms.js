@@ -171,18 +171,19 @@ $(document).on("click", ".isms-category", function (e) {
             Math.floor(Math.random() * 3)
         ]
     ).addClass("d-inline");
+    $('#ai-report-start-btn').val(this.dataset.category);
     $("#ai-report-content").val(
-        "증빙자료가 잘 준비되어있음\n내부관리계획은 경영진 날인이 되지 않았으나 특별한 사유가 있고 관련 근거가 있어 괜찮을 것으로 추정"
+        "AI 분석을 실시해 주세요."
     );
 
     $("#report-special").val(
-        "경영진이 납치되어 내부관리계획에 경영진 승인 날인이 되지않음\n경영진 이사회이후 날인예정"
+        ""
     );
-    $("#report-result").val("경영진이 납치되었으면 부경영진이 날인해야함");
+    $("#report-result").val("");
 
     // TODO: 백엔드에서 증빙자료 불러오기
     $("#file-uploaded-container").html("");
-    ["test1.pdf", "test2.pdf"].forEach((name, index) => {
+    [].forEach((name, index) => {
         appendFileBlock(name);
     });
 });
@@ -231,16 +232,88 @@ $(document).on("click", "#ai-report-start-btn", function (e) {
         if (!result.isConfirmed) {
             return;
         }
-
         $(".ai-report-badge").removeClass("d-inline");
-        $(
-            ["#ai-report-success", "#ai-report-warning", "#ai-report-danger"][
-                Math.floor(Math.random() * 3)
-            ]
-        ).addClass("d-inline");
-        $("#ai-report-content").val(
-            "자료가 잘 준비되어있음\n계획은 괜찮을 것으로 추정"
-        );
+        if ($(e.target).val() == '2-5-2') {
+            $(
+                ["#ai-report-success", "#ai-report-warning", "#ai-report-danger"][
+                    Math.floor(2)
+                ]
+            ).addClass("d-inline");
+            $("#ai-report-content").val(
+                `
+원래 규칙: 관리자 및 특수권한 계정은 쉽게 추측 가능한 식별자(root, admin, administrator 등)의 사용을 제한한다.
+
+서버 실제 점검결과: admin:x:1002:1002::/home/admin:/bin/sh
+
+위의 점검결과를 확인해보면, 점검결과는 원래의 규칙에 위배되고 있습니다. 관리자 계정명이 'admin'으로 설정되어 있어, 쉽게 추측 가능한 식별자를 사용하고 있기 때문입니다. 따라서, 이 부분에 대하여 수정이 필요합니다.
+                `
+            );
+        } else if ($(e.target).val() == '2-5-3') {
+            $(
+                ["#ai-report-success", "#ai-report-warning", "#ai-report-danger"][
+                    Math.floor(2)
+                ]
+            ).addClass("d-inline");
+            $("#ai-report-content").val(
+                `
+세션타임아웃 시간 설정 부분에 대해 이야기하겠습니다. 원래 규칙에 따르면 세션타임아웃은 300초 미만으로 설정되어야 합니다. 하지만 증빙자료인 보안정책 지침에서는 세션타임아웃을 600초 이상으로 설정하라고 되어 있습니다. 
+
+또한, 서버의 실제 점검결과에서는 세션타임아웃이 900초로 설정되어 있다고 나와있습니다.
+
+따라서 증빙자료와 서버점검결과는 원래 규칙에 부합하지 않습니다. 이는 원래 규칙이 틀리지 않고, 증빙자료와 서버점검결과가 잘못된 것으로 판단됩니다. 
+
+따라서 세션타임아웃 설정 부분을 원래 규칙인 300초 미만으로 수정하도록 권고드립니다.
+                `
+            );
+        } else if ($(e.target).val() == '2-5-4') {
+            $(
+                ["#ai-report-success", "#ai-report-warning", "#ai-report-danger"][
+                    Math.floor(2)
+                ]
+            ).addClass("d-inline");
+            $("#ai-report-content").val(
+                `
+원래 규칙에 따르면 패스워드 최대 사용기간은 30일 이하로 설정되어야 합니다.
+하지만 증빙자료에는 패스워드 최대 사용기간이 60일로 설정되어 있는 것을 확인할 수 있습니다.
+또한 서버 실제 점검결과에서도 패스워드 최대 사용기간이 99999일로 나와 있습니다.
+따라서 두 설정 모두 원래 규칙과 일치하지 않습니다.
+결과적으로 증빙자료와 서버 점검결과 모두 패스워드 최대 사용기간 설정 부분이 원래 규칙에 위반됩니다.
+                `
+            );
+        }  else if ($(e.target).val() == '2-9-6') {
+            $(
+                ["#ai-report-success", "#ai-report-warning", "#ai-report-danger"][
+                    Math.floor(0)
+                ]
+            ).addClass("d-inline");
+            $("#ai-report-content").val(
+                `
+원래 규칙에 따르면, "시간이 구글서버시간과 오차가 30초이내"라고 되어 있습니다. 
+
+하지만 자료와 서버 점검 결과를 보면,
+4. Time Synchronization Check의 결과에서 "서버 시간: 2023-12-10 01:24:54, 구글 시간: Sun Dec 10 01:24:53 2023. 시간 차이: 1.0 초. 시간이 30초 이내로 동기화 되어 있다"라고 명시되어 있습니다. 이는 실제 서버 시간과 구글 시간 사이에 1초의 차이가 있음을 나타내며, 이는 원래 규칙에 어긋나지 않습니다. 원래 규칙에 따르면 시간 동기화를 하지 않아도 된다고 되어있지만, 현재 서버 시간이 구글 시간과 동기화 되어 있어 문제가 되지 않습니다.
+
+즉, 시간 동기화 설정 부분에 대해 원래 규칙과 서버 점검 결과는 일치하며 증빙자료에서도 이를 확인할 수 있습니다. 
+
+따라서, 시간 동기화 설정 부분은 원래 규칙에 부합하며 서버 점검 결과와 증빙자료의 설정 부분 역시 이를 따르고 있습니다.
+                `
+            );
+        }   else if ($(e.target).val() == '2-10-9') {
+            $(
+                ["#ai-report-success", "#ai-report-warning", "#ai-report-danger"][
+                    Math.floor(2)
+                ]
+            ).addClass("d-inline");
+            $("#ai-report-content").val(
+                `
+원래의 규칙에 따르면 백신 정책에 명시되어 있는 "V3백신 설치를 필수로해야한다."입니다.
+
+그러나 서버 실제 점검 결과에 대한 증빙 자료에 따르면 "Antivirus(V3) Installation Check: No antivirus installed(V3)"로서 V3백신이 설치되지 않았음이 확인됩니다.
+
+따라서, 이 부분은 원래 규칙에 부합하지 않습니다.
+                `
+            );
+        }
     });
 });
 
