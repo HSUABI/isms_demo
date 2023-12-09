@@ -182,8 +182,8 @@ $(document).on('show.bs.modal', '#resource-write-modal', function (e) {
     // TODO: 백엔드에서 자산 상세 내용 불러오기
     console.log($(e.relatedTarget).closest('tr').data('id'));
 
-    $('#resource-write-form input[type="text"]').val('Lorem Ipsum');
-    $('#resource-write-form input[type="password"]').val('Lorem Ipsum');
+    $('#resource-write-form input[type="text"]').val('');
+    $('#resource-write-form input[type="password"]').val('');
     $('#resource-write-form select option').attr('selected', null);
     $('#resource-write-form select option:nth-child(2)').attr(
       'selected',
@@ -319,8 +319,8 @@ $(document).on('click', '.resource-category', function (e) {
         'DELL',
         'C640',
         'LINUX',
-        'Centos 8.1',
-        '10.2.3.2',
+        'Ubuntu 22.04',
+        '192.168.230.133',
       ])
     );
   } else if (type === '3') {

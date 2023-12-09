@@ -23,14 +23,16 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.debug(req.body);
-  const { id, pw, name, email, phone, branch, team, systems } = req.body;
+  const { id, pw, name, email, phone, branch, team, systems, ip } = req.body;
+
+  console.log(ip);
 
   db.query(
     "INSERT INTO user (user_id, password, user_name, " +
     "affiliation, team_id, is_confirmed, " +
-    "is_admin) VALUES " +
-    "(?, ?, ?, ?, ?, ?, ?)",
-    [id, pw, name, branch, team, 0, 0]
+    "is_admin, ip) VALUES " +
+    "(?, ?, ?, ?, ?, ?, ?, ?)",
+    [id, pw, name, branch, team, 0, 0, ip]
   );
 
   systems.forEach((element) => {
