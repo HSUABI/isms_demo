@@ -41,5 +41,10 @@ pdf_path = './sample.pdf'  # 여기에 PDF 파일 경로를 입력하세요
 extracted_text = extract_text_from_pdf(pdf_path)
 max_usage_period, threshold = find_password_info(extracted_text)
 
-print(f"비밀번호 최대 사용 기간: {max_usage_period}일")
-print(f"비밀번호 임계값: {threshold}")
+# 텍스트를 'pdf2txt.txt' 파일로 출력
+with open('pdf2txt.txt', 'w', encoding='utf-8') as txt_file:
+    txt_file.write(extracted_text)
+    
+with open('output_moonseo.txt', 'w', encoding='utf-8') as file:
+    file.write(f"비밀번호 최대 사용 기간: {max_usage_period}일\n")
+    file.write(f"비밀번호 임계값: {threshold}\n")

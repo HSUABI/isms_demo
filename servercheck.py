@@ -24,10 +24,15 @@ try:
     print(admin_accounts if admin_accounts else "No admin/administrator accounts found")
 
     # 2. 세션 타임아웃 체크
-    stdin, stdout, stderr = client.exec_command('echo $TMOUT')
-    session_timeout = stdout.read().decode()
+    stdin, stdout, stderr = client.exec_command('cat /etc/profile | grep "export TMOUT="')
+    tmout_line = stdout.read().decode().strip()
     print('2. Session Timeout Check:')
-    print(f"Session timeout: {session_timeout.strip()} (less than 300 or not set)" if not session_timeout.strip() or int(session_timeout) < 300 else f"Session timeout is {session_timeout.strip()} seconds")
+    if tmout_line:
+        # TMOUT 값을 추출
+        session_timeout = tmout_line.split('=')[1]
+        print(f"Session timeout is {session_timeout} seconds")
+    else:
+        print("Session timeout not set or less than 300 seconds")
 
     # 3. 비밀번호 정책 설정값 확인
     stdin, stdout, stderr = client.exec_command('cat /etc/login.defs | egrep "PASS_MIN_DAYS|PASS_MAX_DAYS|PASS_MIN_LEN" | egrep -v "#"')
