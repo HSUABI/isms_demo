@@ -18,7 +18,7 @@ function packData(results) {
             titleData.score = [0, 0, 0];
             titleData.subs = [];
         } else {
-            titleData.score[element.grade-1]++;
+            titleData.score[element.grade]++;
             titleData.subs.push({
                 name: element.title,
                 grade: element.grade,
