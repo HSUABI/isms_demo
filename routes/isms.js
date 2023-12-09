@@ -4,7 +4,8 @@ const conn = require("../dbconn/dbconn");
 const router = express.Router();
 
 router.get("/:type", (req, res) => {
-    conn.getSystemData("S01", (result) => {
+    console.log(req.params.type);
+    conn.getSystemData("S01", "2023", (result) => {
         conn.getSystemList((systemList) => {
             if (req.session.loggedin) {
                 console.log(req);

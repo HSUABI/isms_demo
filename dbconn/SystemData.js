@@ -7,15 +7,18 @@ function packData(results) {
     titleData = null;
     results.forEach((element) => {
         // is title
-        if (element.class3 == null) {
+        if (element.class2 == null && element.class3 == null) {
+            // do nothing...
+        } else if (element.class3 == null) {
             if (titleData != null) {
                 data.push(titleData);
             }
             titleData = {};
             titleData.name = element.title;
-            titleData.score = [element.score1, element.score2, element.score3];
+            titleData.score = [0, 0, 0];
             titleData.subs = [];
         } else {
+            titleData.score[element.grade-1]++;
             titleData.subs.push({
                 name: element.title,
                 grade: element.grade,
@@ -25,12 +28,12 @@ function packData(results) {
     return data;
 }
 
-module.exports = async (systemId, callback) => {
+module.exports = async (systemId, year, callback) => {
     return db.query(
         "SELECT class1, class2, class3, title, " +
         "score1, score2, score3, grade FROM isms " +
-        "WHERE system_id=?",
-        [systemId],
+        "WHERE system_id=? and year=?",
+        [systemId, year],
         (err, results) => {
             let pack1 = [];
             let pack2 = [];

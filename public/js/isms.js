@@ -90,12 +90,16 @@ function drawCharts() {
 }
 
 $(document).on("change", "#system-toggle", function (e) {
-    console.log(this.dataset.key);
     $.ajax({
-        url: "/restful/getISMS?systemID=" + this.dataset.key,
+        url:
+        "/restful/getISMS?systemID=" +
+        $("#system-toggle").attr("data-key") +
+        "&year=" +
+        $("#year-toggle").attr("data-key"),
         type: "GET",
         success: (data) => {
             window.data = data;
+            drawCharts();
         },
         error: function onError(error) {
             console.error(error);
@@ -105,15 +109,41 @@ $(document).on("change", "#system-toggle", function (e) {
 });
 
 $(document).on("change", "#year-toggle", function (e) {
-    // TODO: 백엔드에서 새로운 내역 불러오기
     console.log(this.dataset.key);
-
+    $.ajax({
+        url:
+            "/restful/getISMS?systemID=" +
+            $("#system-toggle").attr("data-key") +
+            "&year=" +
+            $("#year-toggle").attr("data-key"),
+        type: "GET",
+        success: (data) => {
+            window.data = data;
+            drawCharts();
+        },
+        error: function onError(error) {
+            console.error(error);
+        },
+    });
     drawCharts();
 });
 
 $(document).on("click", "#isms-summary", function (e) {
-    // TODO: 백엔드에서 새로운 내역 불러오기
-    console.log(this.dataset.summaryType);
+    $.ajax({
+        url:
+            "/restful/getISMS?systemID=" +
+            $("#system-toggle").attr("data-key") +
+            "&year=" +
+            $("#year-toggle").attr("data-key"),
+        type: "GET",
+        success: (data) => {
+            window.data = data;
+            drawCharts();
+        },
+        error: function onError(error) {
+            console.error(error);
+        },
+    });
 });
 
 $(document).on("click", ".isms-category", function (e) {
